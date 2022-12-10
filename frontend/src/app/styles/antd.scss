@@ -1,0 +1,9 @@
+.antd-spin.overlay {
+  position: absolute;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+}
