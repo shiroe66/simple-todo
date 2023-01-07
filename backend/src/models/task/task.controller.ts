@@ -19,17 +19,17 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
 
 @Controller('tasks')
+@UseGuards(AuthenticatedGuard)
 export class TaskController {
   constructor(private taskService: TaskService) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthenticatedGuard)
   async findAll(@GetUser('id') id: string) {
     return this.taskService.findAll(id);
   }
 
-  @Get('find')
+  @Get(':id')
   @HttpCode(HttpStatus.OK)
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.taskService.findOne(id);
@@ -44,7 +44,7 @@ export class TaskController {
     return this.taskService.create(createTaskDto, user);
   }
 
-  @Put('update')
+  @Put('update/:id')
   @HttpCode(HttpStatus.CREATED)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
@@ -53,7 +53,7 @@ export class TaskController {
     return this.taskService.update(id, updateTaskDto);
   }
 
-  @Delete('delete')
+  @Delete('delete/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     return this.taskService.delete(id);
