@@ -1,13 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
+import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(cookieParser());
-
   const config = app.get(ConfigService);
 
   app.use(
@@ -18,6 +16,8 @@ async function bootstrap() {
       cookie: { maxAge: 3600000 },
     }),
   );
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   await app.listen(3000);
 }

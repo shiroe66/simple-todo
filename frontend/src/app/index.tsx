@@ -1,6 +1,6 @@
-import Routing from '@app/pages';
 import { withProviders } from './providers';
 import './index.scss';
+import Routing from '@/pages';
 
 const App = () => {
   return (

@@ -8,8 +8,8 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 export class TaskService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.task.findMany();
+  async findAll(id: string) {
+    return this.prisma.task.findMany({ where: {id} });
   }
 
   async findOne(id: string) {

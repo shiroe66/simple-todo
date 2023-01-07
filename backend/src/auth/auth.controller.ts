@@ -36,10 +36,4 @@ export class AuthController {
   ) {
     return user;
   }
-
-  @Get('profile')
-  @UseGuards(AuthenticatedGuard)
-  async profile(@Req() req: Request, @Res() res: Response) {
-    console.log(req.cookies);
-  }
 }

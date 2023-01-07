@@ -1,4 +1,5 @@
 import { GetUser } from '@app/common/decorators/request';
+import { AuthenticatedGuard } from '@app/common/guards';
 import {
   Body,
   Controller,
@@ -10,6 +11,7 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -22,8 +24,9 @@ export class TaskController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async findAll() {
-    return this.taskService.findAll();
+  @UseGuards(AuthenticatedGuard)
+  async findAll(@GetUser('id') id: string) {
+    return this.taskService.findAll(id);
   }
 
   @Get('find')
